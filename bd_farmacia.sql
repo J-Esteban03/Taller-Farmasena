@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-07-2023 a las 01:16:30
+-- Tiempo de generación: 11-07-2023 a las 01:14:31
 -- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Versión de PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,7 +41,8 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`Id`, `dni`, `nombre`, `telefono`, `direccion`, `fecha`) VALUES
-(4, 1121212, 'johan', 12232, 'hueco del sena calle 20', '2023-07-09 01:10:08');
+(1, 1004, 'Juan Esteban', 3107, 'calle 10', '2023-07-09 17:08:22'),
+(2, 1002, 'Johan', 311, 'calle 20', '2023-07-09 17:09:14');
 
 -- --------------------------------------------------------
 
@@ -72,6 +73,16 @@ CREATE TABLE `detalle` (
   `id_venta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `detalle`
+--
+
+INSERT INTO `detalle` (`id`, `cod_producto`, `cantidad`, `precio`, `id_venta`) VALUES
+(6, 1, 5, 5000.00, 6),
+(7, 3, 5, 3000.00, 6),
+(8, 2, 5, 2000.00, 7),
+(9, 1, 1, 5000.00, 7);
+
 -- --------------------------------------------------------
 
 --
@@ -92,9 +103,9 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `codigo`, `nombre`, `stock`, `precio`, `fecha`) VALUES
-(1, '121', 'sdsds', 2, 1212.00, '2023-07-08 23:20:41'),
-(2, '2323', 'edfsf', 23, 2323.00, '2023-07-08 23:21:46'),
-(3, '2323', 'sdsd', 23, 2323.00, '2023-07-09 00:15:42');
+(1, '1', 'Dolex', 9, 5000.00, '2023-07-08 23:20:41'),
+(2, '2', 'Acetaminofen', 15, 2000.00, '2023-07-08 23:21:46'),
+(3, '3', 'Flectadol', 10, 3000.00, '2023-07-09 00:15:42');
 
 -- --------------------------------------------------------
 
@@ -128,15 +139,17 @@ CREATE TABLE `usuarios` (
   `Id` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `correo` varchar(100) NOT NULL,
-  `pass` varchar(100) NOT NULL
+  `pass` varchar(100) NOT NULL,
+  `rol` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`Id`, `nombre`, `correo`, `pass`) VALUES
-(1, 'johan', 'johan@gmail.com', 'adso2023');
+INSERT INTO `usuarios` (`Id`, `nombre`, `correo`, `pass`, `rol`) VALUES
+(1, 'Esteban', 'Juanes@gmail.com', '1234', ''),
+(2, 'johan', 'johan@gmail.com', 'adso2023', '');
 
 -- --------------------------------------------------------
 
@@ -151,6 +164,14 @@ CREATE TABLE `ventas` (
   `total` decimal(10,2) NOT NULL,
   `fecha` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `ventas`
+--
+
+INSERT INTO `ventas` (`id`, `cliente`, `vendedor`, `total`, `fecha`) VALUES
+(6, 'Juan Esteban', 'FARMASENA', 40000.00, '2023-07-09 18:11:59'),
+(7, 'Johan', 'FARMASENA', 15000.00, '2023-07-09 18:29:03');
 
 --
 -- Índices para tablas volcadas
@@ -206,7 +227,7 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `config`
@@ -218,7 +239,7 @@ ALTER TABLE `config`
 -- AUTO_INCREMENT de la tabla `detalle`
 --
 ALTER TABLE `detalle`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -236,13 +257,13 @@ ALTER TABLE `proveedor`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

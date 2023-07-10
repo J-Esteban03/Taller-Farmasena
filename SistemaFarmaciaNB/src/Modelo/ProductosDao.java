@@ -106,7 +106,7 @@ public class ProductosDao {
            //ps.setInt(3, pro.getProveedor());
            ps.setInt(3, pro.getStock());
            ps.setDouble(4, pro.getPrecio());
-           ps.setInt(6, pro.getId());
+           ps.setInt(5, pro.getId());
            ps.execute();
            return true;
        } catch (SQLException e) {
@@ -163,6 +163,23 @@ public class ProductosDao {
         return pro;
     }
     
-    
-    
+    public Config BuscarDatos(){
+        Config conf = new Config();
+        String sql = "SELECT * FROM config";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                conf.setId(rs.getInt("id"));
+                conf.setRuc(rs.getInt("ruc"));
+                conf.setNombre(rs.getString("nombre"));
+                conf.setTelefono(rs.getInt("telefono"));
+                conf.setDireccion(rs.getString("direccion"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+        return conf;
+    }
 }
